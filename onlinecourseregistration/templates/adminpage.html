@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin Dashboard - Responsive Sidebar</title>
+<style>
+  /* Reset */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f7f9fc;
+    color: #333;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* Navbar (mobile) */
+  .navbar {
+    display: none;
+    background-color: #2e7d32;
+    color: white;
+    padding: 1rem 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .navbar .menu-btn {
+    font-size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .navbar .title {
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100vh;
+    background-color: #2e7d32;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1.5rem;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+  }
+  .sidebar h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+  .sidebar nav a {
+    padding: 1rem 2rem;
+    display: block;
+    font-weight: 600;
+    border-left: 4px solid transparent;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  .sidebar nav a:hover,
+  .sidebar nav a.active {
+    background-color: #1b5e20;
+    border-left-color: #a5d6a7;
+  }
+
+  /* Main content */
+  .main-content {
+    margin-left: 240px;
+    padding: 1.5rem 2rem;
+    min-height: 100vh;
+  }
+  header {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #2e7d32;
+  }
+
+  /* Stats cards */
+  .stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .card {
+    background: white;
+    padding: 1.2rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  .card h3 {
+    margin: 0;
+    font-size: 2rem;
+    color: #2e7d32;
+  }
+  .card p {
+    margin: 0;
+    font-weight: 600;
+    color: #555;
+    margin-top: 0.3rem;
+  }
+
+  /* Chart placeholder */
+  .chart {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+    font-size: 1.2rem;
+    font-style: italic;
+  }
+
+  /* Recent registrations table */
+  .registrations {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .registrations h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #2e7d32;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.95rem;
+  }
+  th {
+    background-color: #c8e6c9;
+    color: #1b5e20;
+    font-weight: 700;
+  }
+  tr:hover {
+    background-color: #f1f8f1;
+  }
+  .status-approved {
+    color: white;
+    background-color: #2e7d32;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+  .status-pending {
+    color: white;
+    background-color: #f9a825;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  /* Responsive */
+
+  /* Small screen */
+  @media (max-width: 768px) {
+    .navbar {
+      display: flex;
+    }
+    .sidebar {
+      transform: translateX(-100%);
+      width: 240px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #2e7d32;
+      padding-top: 1.5rem;
+      transition: transform 0.3s ease;
+      z-index: 1100;
+    }
+    .sidebar.open {
+      transform: translateX(0);
+      box-shadow: 4px 0 12px rgba(0,0,0,0.3);
+    }
+    .main-content {
+      margin-left: 0;
+      padding: 1rem;
+    }
+
+
+    @media (max-width: 600px) {
+  .registrations table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .registrations th, .registrations td {
+    white-space: nowrap;
+  }
+}
+
+  }
+
+
+  .registrations1 {
+    background: transparent;
+    border-radius: 12px;
+    padding: 12px;
+    
+   
+  }
+
+
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+
+
+/* Modal background with strong blur and glass effect */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; 
+  z-index: 1000; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; 
+  background-color: rgba(255, 255, 255, 0.1); /* very light translucent white */
+  backdrop-filter: blur(12px); /* strong blur */
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
+  /* Optional: add subtle brightness to brighten the blur */
+  /* filter: brightness(1.1); */
+}
+
+/* Modal content box with glass effect */
+.modal-content {
+  background: rgba(255, 255, 255, 0.25); /* translucent white */
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+
+  input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin: 12px 0;
+    font-size: 26px;
+    border-radius: 15px;
+  }
+
+  button {
+    padding: 8px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 14px;
+    height: 18px;
+  }
+  #submitKeyBtn {
+  background: rgba(8, 68, 2, 0.3);
+  color: #222;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  padding: 10px 28px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+#submitKeyBtn:hover {
+  background: rgba(255, 255, 255, 0.5);
+  color: #000;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+}
+
+#submitKeyBtn:active {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 3px 10px rgba(255, 255, 255, 0.6);
+}
+
+</style>
+
+<div id="privateKeyModal" class="modal">
+  <div class="modal-content">
+    <h2>Enter Private Key</h2>
+    <input type="password" id="privateKeyInput" placeholder="Private Key" />
+    <div class="error-message" id="errorMsg"></div>
+    <button id="submitKeyBtn">Submit</button>
+  </div>
+</div>
+
+
+
+<script>
+  let CORRECT_KEY = "";
+
+  const modal = document.getElementById('privateKeyModal');
+  const mainContent = document.getElementById('mainContent');
+  const input = document.getElementById('privateKeyInput');
+  const errorMsg = document.getElementById('errorMsg');
+  const submitBtn = document.getElementById('submitKeyBtn');
+
+  // Fetch the private key from the backend
+  fetch('/onlinecourseregistration/get-private-key/')
+    .then(response => response.json())
+    .then(data => {
+      CORRECT_KEY = data.private_key;
+      modal.style.display = "block";
+      input.focus();
+    })
+    .catch(error => {
+      console.error('Error fetching private key:', error);
+      // Optionally handle error (e.g., show an error message to user)
+    });
+
+  // Function to check the key
+  function checkKey() {
+    const enteredKey = input.value.trim();
+    if (enteredKey === CORRECT_KEY) {
+      errorMsg.textContent = "";
+      modal.style.display = "none";
+      mainContent.style.display = "block";
+    } else {
+      errorMsg.textContent = "Incorrect private key. Please try again.";
+      input.value = "";
+      input.focus();
+    }
+  }
+
+  // Submit button click event
+  submitBtn.addEventListener('click', checkKey);
+
+  // Allow Enter key to submit
+  input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      checkKey();
+    }
+  });
+</script>
+
+
+
+
+
+
+<div id="mainContent" style="display:none;">
+  </div>
+
+  <header class="navbar">
+    <div class="menu-btn" id="menu-btn">&#9776;</div>
+    <div class="title">Admin Panel </div>
+  </header>
+
+
+  <aside class="sidebar" id="sidebar">
+    <h2>Admin Panel </h2>
+    <nav>
+      <a href="#" class="active">Dashboard</a>
+      <a href="{% url 'upload_course' %}"> Upload Courses</a>
+      <a href="{% url 'allreg' %}"> Course Registration History </a>
+    </nav>
+  </aside>
+
+
+  <main class="main-content">
+    <header>Dashboard Overview</header>
+
+    <section class="stats-cards">
+      <div class="card">
+        <h3>{{ total_courses }}</h3>
+        <p>Total Courses</p>
+      </div>
+      <div class="card">
+        <h3>{{ total_users }}</h3>
+        <p>Total Students</p>
+      </div>
+      <div class="card">
+        <h3>{{ total_course_registrations }}</h3>
+        <p>Active Registrations</p>
+      </div>
+     
+    </section>
+
+
+
+
+
+
+
+
+
+    <section class="registrations">
+      <h3>Recent Registrations</h3>
+      <table>
+        {% for registration in recent_registrations %}
+    
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Course</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ registration.student.full_name }}</td>
+            <td>{{ registration.course.title }} ({{ registration.course.code }})</td>
+            <td>{{ registration.registered_at|date:"Y-m-d H:i" }}</td>
+            <td><span class="status-approved">Approved</span></td>
+          </tr>
+          {% empty %}
+        </tbody>
+
+        <tr>
+          <td colspan="3">No recent course registrations found.</td>
+      </tr>
+  {% endfor %}
+
+
+      </table>
+
+&nbsp;
+
+  
+      
+    </section>
+
+
+    <section class="registrations1">
+      <a href="{% url 'allreg' %}"> 
+    <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+    View All
+      </button> 
+    </a>
+      </section>
+     
+
+  </main>
+
+
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const sidebar = document.getElementById('sidebar');
+
+  menuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+
+
+  window.addEventListener('click', (e) => {
+    if (!sidebar.contains(e.target) && !menuBtn.contains(e.target) && sidebar.classList.contains('open')) {
+      sidebar.classList.remove('open');
+    }
+  });
+</script>
+
+</body>
+</html>

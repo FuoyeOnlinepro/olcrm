@@ -1,0 +1,147 @@
+<!-- templates/user_profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link 
+      rel="stylesheet" 
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .profile-card {
+            max-width: 600px;
+            margin: auto;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #468f01, #2b7003);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+          
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid white;
+            object-fit: cover;
+            margin-top: -30px;
+            background-color: #ffffff;
+        }
+
+        .profile-info {
+            padding: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-item span {
+            font-weight: 500;
+        }
+
+        .logout-btn {
+            margin: 20px;
+            display: block;
+        }
+
+        @media (max-width: 576px) {
+            .info-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .info-item span {
+                margin-top: 5px;
+            }
+
+            .profile-header {
+                padding: 20px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <div class="profile-header">
+            <h2>Welcome, {{ user.first_name }}</h2>
+        </div>
+        <div class="text-center">
+            <img src="{% static 'images/avatar.png' %}" alt="User Avatar" class="profile-avatar">
+        </div>
+        <div class="profile-info">
+            <div class="info-item">
+                <strong>Email:</strong>
+                <span>{{ user.email }}</span>
+            </div>
+            <div class="info-item">
+                <strong>Full Name:</strong>
+                <span>{{ user.full_name }}</span>
+            </div>
+            <div class="info-item">
+                <strong>Department:</strong>
+                <span>
+                    {% if user.department %}
+                        {{ user.get_department_display }}
+                    {% else %}
+                        Not assigned
+                    {% endif %}
+                </span>
+            </div>
+            <div class="info-item">
+                <strong>Level:</strong>
+                <span>
+                    {% if user.level %}
+                        {{ user.level }}
+                    {% else %}
+                        Not assigned
+                    {% endif %}
+                </span>
+            </div>
+            <div class="info-item">
+                <strong>Semester:</strong>
+                <span>
+                    {% if user.semester %}
+                        {{ user.semester }}
+                    {% else %}
+                        Not assigned
+                    {% endif %}
+                </span>
+            </div>
+          
+           
+            <div class="info-item">
+                <strong>Date Joined:</strong>
+                <span>{{ user.date_joined|date:"F j, Y, g:i a" }}</span>
+            </div>
+        </div>
+        <div class="text-center">
+            <form method="POST" action="{% url 'logout' %}">
+            <a href="{% url 'logout' %}" class="btn btn-danger logout-btn">Logout</a>
+        </form>
+        </div>
+    </div>
+</body>
+</html>

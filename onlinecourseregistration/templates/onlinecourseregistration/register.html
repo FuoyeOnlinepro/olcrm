@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        .container {
+            padding: 20px; /* Adjust padding for smaller screens */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NexisphereFX💱</h1>
+        <p class="special-text">Sign up now to effortlessly pay and manage your money across West Africa. Stay connected, secure, and in control—anywhere, anytime.</p>
+        <form method="post" action="{% url 'register' %}" id="registerForm"> <!-- Updated 'signup' to 'register' -->
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="errors">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="errors">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</body>
+</html>
