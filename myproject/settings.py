@@ -37,6 +37,13 @@ ALLOWED_HOSTS = os.getenv(
 
 
 
+    
+
+import os
+print("FLUTTERWAVE_SECRET_KEY:", os.getenv("FLUTTERWAVE_SECRET_KEY"))
+print("ALLOWED_HOSTS:", os.getenv("ALLOWED_HOSTS"))
+
+
 
 
 # Application definition         

@@ -357,7 +357,7 @@ def register_course(request, course_id):
 
 
 
-
+  
 
 
 from django.shortcuts import render
@@ -371,7 +371,7 @@ def registration_history(request):
     return render(request, 'registration_history.html', {
         'registered_courses': registered_courses,
     })
-
+ 
 
 
 
