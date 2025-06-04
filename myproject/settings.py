@@ -29,7 +29,11 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 # Allow all hosts or specify your Render app hostname here
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'fuoyecoure.onrender.com,127.0.0.1,192.168.123.199').split(',')
+# Allow hosts - update with your Render app hostname exactly
+ALLOWED_HOSTS = os.getenv(
+    'ALLOWED_HOSTS',
+    'fuoyeonlinecourseregistrationapp.onrender.com,127.0.0.1,192.168.123.199'
+).split(',')
 
 
 
