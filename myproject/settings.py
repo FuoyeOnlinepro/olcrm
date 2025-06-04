@@ -31,16 +31,14 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 # Allow all hosts or specify your Render app hostname here
 
 # Allow hosts - update with your Render app    hostname exactly
-ALLOWED_HOSTS = os.getenv(
-    'ALLOWED_HOSTS',
-    'fuoyeonlinecourseregistrationapp.onrender.com,127.0.0.1,192.168.123.199'
-).split(',')
+ALLOWED_HOSTS = ['*']
+
 
 
 
     
 
-import os
+import os 
 print("FLUTTERWAVE_SECRET_KEY:", os.getenv("FLUTTERWAVE_SECRET_KEY"))
 print("ALLOWED_HOSTS:", os.getenv("ALLOWED_HOSTS"))
 
