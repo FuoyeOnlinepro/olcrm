@@ -10,42 +10,23 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-
 import os
 from pathlib import Path
-from dotenv import load_dotenv
 import dj_database_url
-
-# Load environment variables from .env file
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-kh5!x9253n9+u9)&^23o1sh6d1xm33170tmm78y$mugpxo($-6')
+SECRET_KEY = 'django-insecure-kh5!x9253n9+u9)&^23o1sh6d1xm33170tmm78y$mugpxo($-6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = False  # Set to False for production
 
-# Allow all hosts or specify your Render app hostname here
-
-# Allow hosts - update with your Render app    hostname exactly
+# Allow all hosts (for showcase purposes)
 ALLOWED_HOSTS = ['*']
 
-
-
-
-    
-
-import os 
-print("FLUTTERWAVE_SECRET_KEY:", os.getenv("FLUTTERWAVE_SECRET_KEY"))
-print("ALLOWED_HOSTS:", os.getenv("ALLOWED_HOSTS"))
-
-
-
-
-# Application definition         
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -127,8 +108,9 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # Use WhiteNoise to serve static files in production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Additional keys from .env
-FLUTTERWAVE_SECRET_KEY = os.getenv('FLW_SECRET_KEY')
-FLUTTERWAVE_PUBLIC_KEY = os.getenv('FLW_PUBLIC_KEY')
+# Removed .env-based Flutterwave keys (not needed in showcase)
+# FLUTTERWAVE_SECRET_KEY = ''
+# FLUTTERWAVE_PUBLIC_KEY = ''
 
+# Placeholder PRIVATE_KEY for showcase
 PRIVATE_KEY = "Open"
