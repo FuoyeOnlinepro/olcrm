@@ -273,7 +273,9 @@ def kyc(request):
 
 
 
-
+@login_required
+def upload_course_success(request):
+    return render(request, 'upload_course_success.html')
 
 from django.shortcuts import render, redirect
 from .forms import CourseForm

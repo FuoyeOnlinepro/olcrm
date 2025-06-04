@@ -92,11 +92,197 @@
         }
     </style>
 </head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+
+
+    /* Modal background with strong blur and glass effect */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; 
+      z-index: 1000; 
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto; 
+      background-color: rgba(255, 255, 255, 0.1); /* very light translucent white */
+      backdrop-filter: blur(12px); /* strong blur */
+      -webkit-backdrop-filter: blur(12px); /* Safari support */
+      /* Optional: add subtle brightness to brighten the blur */
+      /* filter: brightness(1.1); */
+    }
+    
+    /* Modal content box with glass effect */
+    .modal-content {
+      background: rgba(255, 255, 255, 0.25); /* translucent white */
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 12px;
+      width: 300px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    
+    
+      input[type="password"] {
+        width: 100%;
+        padding: 8px;
+        margin: 12px 0;
+        font-size: 26px;
+        border-radius: 15px;
+      }
+    
+      button {
+        padding: 8px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    
+      .error-message {
+        color: red;
+        font-size: 14px;
+        height: 18px;
+      }
+      #submitKeyBtn {
+      background: rgba(8, 68, 2, 0.3);
+      color: #222;
+      border: 1.5px solid rgba(255, 255, 255, 0.5);
+      padding: 10px 28px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    }
+    
+    #submitKeyBtn:hover {
+      background: rgba(255, 255, 255, 0.5);
+      color: #000;
+      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+    }
+    
+    #submitKeyBtn:active {
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 3px 10px rgba(255, 255, 255, 0.6);
+    }
+    
+    </style>
+    
+    <div id="privateKeyModal" class="modal">
+      <div class="modal-content">
+        <h2>Enter Private Key</h2>
+        <input type="password" id="privateKeyInput" placeholder="Private Key" />
+        <div class="error-message" id="errorMsg"></div>
+        <button id="submitKeyBtn">Submit</button>
+      </div>
+    </div>
+    
+    
+    
+    <script>
+      let CORRECT_KEY = "";
+    
+      const modal = document.getElementById('privateKeyModal');
+      const mainContent = document.getElementById('mainContent');
+      const input = document.getElementById('privateKeyInput');
+      const errorMsg = document.getElementById('errorMsg');
+      const submitBtn = document.getElementById('submitKeyBtn');
+    
+      // Fetch the private key from the backend
+      fetch('/onlinecourseregistration/get-private-key/')
+        .then(response => response.json())
+        .then(data => {
+          CORRECT_KEY = data.private_key;
+          modal.style.display = "block";
+          input.focus();
+        })
+        .catch(error => {
+          console.error('Error fetching private key:', error);
+          // Optionally handle error (e.g., show an error message to user)
+        });
+    
+      // Function to check the key
+      function checkKey() {
+        const enteredKey = input.value.trim();
+        if (enteredKey === CORRECT_KEY) {
+          errorMsg.textContent = "";
+          modal.style.display = "none";
+          mainContent.style.display = "block";
+        } else {
+          errorMsg.textContent = "Incorrect private key. Please try again.";
+          input.value = "";
+          input.focus();
+        }
+      }
+    
+      // Submit button click event
+      submitBtn.addEventListener('click', checkKey);
+    
+      // Allow Enter key to submit
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          checkKey();
+        }
+      });
+    </script>
+    
+    
+    
+    
+    
+    
+    <div id="mainContent" style="display:none;">
+      </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <body>
     <div class="container">
         <div class="mb-6 text-center">
             <h1>
-                <img src="{% static 'images/logo1.png' %}" alt="NXC Icon" width="32" height="24" class="logo" />
+                <img src="https://res-console.cloudinary.com/dvt1wv1dy/thumbnails/v1/image/upload/v1749032446/bG9nbzFfdmhseWFy/drilldown" alt="NXC Icon" width="32" height="24" class="logo" />
                 Fuoye Online Course Management
             </h1>
             <h2>Upload New Course</h2>
@@ -135,7 +321,7 @@
         </form>
 
         <div class="text-center">
-            <a href="{% url 'available_courses' %}" class="back-link">Back to Courses</a>
+            <a href="{% url 'registration_history' %}" class="back-link">home</a>
         </div>
     </div>
 </body>

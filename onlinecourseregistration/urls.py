@@ -25,6 +25,7 @@ from .views import (
     get_private_key,
     allreg,
     logout_view,
+    upload_course_success,
     
 )
 
@@ -32,7 +33,7 @@ urlpatterns = [
     path('', landing_page, name='landing_page'),  # Landing page
     path('home/', HomeView.as_view(), name='home'),  # Home view
     path('login/', login, name='login'),  # Login view
-   
+    path('upload_course_success/', upload_course_success, name='upload_course_success'),  # Login view
     path('signup/', signup, name='signup'),  # Signup view
     path('change_password/', change_password, name='change_password'),  # Change password
     path('password_change_done/', password_change_done, name='password_change_done'),  # Password change done
@@ -55,4 +56,4 @@ urlpatterns = [
     path('allreg/', allreg, name='allreg' ),
     path('get-private-key/', get_private_key, name='get_private_key'),
     path('logout/', logout_view, name='logout'),
-]
+]  
